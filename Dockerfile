@@ -1,4 +1,4 @@
-FROM centos:centos7
+FROM stpork/tini-centos
 
 MAINTAINER stpork from Mordor team
 
