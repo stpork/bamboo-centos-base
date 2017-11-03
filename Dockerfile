@@ -38,4 +38,4 @@ USER ${BAMBOO_USER}:${BAMBOO_GROUP}
 
 VOLUME ["${BAMBOO_HOME}"]
 
-ENTRYPOINT ["/sbin/tini", "--"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
