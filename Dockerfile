@@ -2,27 +2,25 @@ FROM stpork/tini-centos
 
 MAINTAINER stpork from Mordor team
 
-ENV BAMBOO_HOME=/var/atlassian/application-data/bamboo \
-BAMBOO_USER=daemon \
+ENV BAMBOO_USER=daemon \
 BAMBOO_GROUP=daemon \
+BAMBOO_HOME=/var/atlassian/application-data/bamboo \
 PATH=$PATH:/opt/gradle/bin
 
 ENV HOME			$BAMBOO_HOME/home 
 ENV _JAVA_OPTIONS	-Duser.home=$HOME
 
-ARG TOOL_INSTALL=/usr/local/bin
-ARG OCP_VERSION=v3.6.1
-ARG OCP_BUILD=008f2d5
-ARG CLI_VERSION=7.1.0
-ARG CLI_BUILD=16285777
-ARG GRADLE_VERSION=4.3 
-
-ARG M2_URL=https://bitbucket.org/stpork/bamboo-agent/downloads/settings.xml
-ARG OC_URL=http://github.com/openshift/origin/releases/download/${OCP_VERSION}/openshift-origin-client-tools-${OCP_VERSION}-${OCP_BUILD}-linux-64bit.tar.gz
-ARG CLI_URL=http://bobswift.atlassian.net/wiki/download/attachments/${CLI_BUILD}/atlassian-cli-${CLI_VERSION}-distribution.zip
-ARG GRADLE_URL=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
-
-RUN yum install -y curl wget openssl unzip git maven net-tools nano tini telnet \
+RUN TOOL_INSTALL=/usr/local/bin \
+&& OCP_VERSION=v3.6.1 \
+&& OCP_BUILD=008f2d5 \
+&& CLI_VERSION=7.1.0 \
+&& CLI_BUILD=16285777 \
+&& GRADLE_VERSION=4.3  \
+&& M2_URL=https://bitbucket.org/stpork/bamboo-agent/downloads/settings.xml \
+&& OC_URL=http://github.com/openshift/origin/releases/download/${OCP_VERSION}/openshift-origin-client-tools-${OCP_VERSION}-${OCP_BUILD}-linux-64bit.tar.gz \
+&& CLI_URL=http://bobswift.atlassian.net/wiki/download/attachments/${CLI_BUILD}/atlassian-cli-${CLI_VERSION}-distribution.zip \
+&& GRADLE_URL=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
+&& yum install -y curl wget openssl unzip git maven net-tools nano tini telnet \
 && yum clean all \
 && rm -rf /var/cache/yum \
 && mkdir -p ${BAMBOO_HOME} \
