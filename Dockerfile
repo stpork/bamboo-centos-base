@@ -22,7 +22,6 @@ RUN yum install -y curl wget openssl unzip git maven gradle nano tini \
     && yum clean all \
     && rm -rf /var/cache/yum \
     && mkdir -p ${BAMBOO_HOME} \
-    && mkdir -p ${HOME} \
     && mkdir -p ${HOME}/.m2 \
     && curl -o ${HOME}/.m2/settings.xml -L --silent ${M2_URL} \
     && curl -L --silent ${OC_URL} | tar -xz --strip-components=1 -C "$TOOL_INSTALL" \
@@ -34,10 +33,6 @@ RUN yum install -y curl wget openssl unzip git maven gradle nano tini \
     && chown -R ${BAMBOO_USER}:${BAMBOO_GROUP} ${TOOL_INSTALL} \
     && chmod -R 777 ${TOOL_INSTALL} \
     && chown -R ${BAMBOO_USER}:${BAMBOO_GROUP} ${BAMBOO_HOME} \
-    && chmod -R 777 ${BAMBOO_HOME}
-
-USER ${BAMBOO_USER}:${BAMBOO_GROUP}
-
-VOLUME ["${BAMBOO_HOME}"]
+    && chmod -R 777 ${BAMBOO_HOME} 
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
