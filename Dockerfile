@@ -5,7 +5,6 @@ MAINTAINER stpork from Mordor team
 ENV RUN_USER=daemon \
 RUN_GROUP=daemon \
 BAMBOO_HOME=/var/atlassian/application-data/bamboo \
-JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk \
 M2_HOME=/usr/local/maven \
 GRADLE_HOME=/usr/local/gradle
 
@@ -26,7 +25,7 @@ RUN TOOL_INSTALL=/usr/local \
 && GRADLE_URL=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
 && MAVEN_URL=http://www.nic.funet.fi/pub/mirrors/apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
 && yum update -y \
-&& yum install -y git wget openssl unzip nano net-tools tini telnet which dejavu-* java-1.8.0-openjdk java-1.8.0-openjdk-devel \
+&& yum install -y git wget openssl unzip nano net-tools tini telnet which dejavu-* maven \
 && yum clean all \
 && rm -rf /var/cache/yum \
 && mkdir -p ${BAMBOO_HOME} \
