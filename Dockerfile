@@ -9,7 +9,7 @@ M2_HOME=/usr/local/maven \
 GRADLE_HOME=/usr/local/gradle
 
 ENV HOME=$BAMBOO_HOME/home \
-PATH=$PATH:$M2_HOME/bin:$GRADLE_HOME/bin
+PATH=$M2_HOME/bin:$GRADLE_HOME/bin:$PATH
 ENV _JAVA_OPTIONS=-Duser.home=$HOME
 
 RUN TOOL_INSTALL=/usr/local \
