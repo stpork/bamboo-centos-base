@@ -5,15 +5,13 @@ MAINTAINER stpork from Mordor team
 ENV RUN_USER=daemon \
 RUN_GROUP=daemon \
 BAMBOO_HOME=/var/atlassian/application-data/bamboo \
-PATH=$PATH:/usr/local/maven/bin:/usr/local/gradle/bin \
+JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk \
 M2_HOME=/usr/local/maven \
 GRADLE_HOME=/usr/local/gradle
 
-#JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk \
-#M2_HOME=/usr/share/maven \
-
-ENV HOME			$BAMBOO_HOME/home 
-ENV _JAVA_OPTIONS	-Duser.home=$HOME
+ENV HOME=$BAMBOO_HOME/home \
+PATH=$PATH:$M2_HOME/bin:$GRADLE_HOME/bin
+ENV _JAVA_OPTIONS=-Duser.home=$HOME
 
 RUN TOOL_INSTALL=/usr/local \
 && OCP_VERSION=v3.6.1 \
