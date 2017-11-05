@@ -7,10 +7,11 @@ RUN_GROUP=daemon \
 BAMBOO_HOME=/var/atlassian/application-data/bamboo \
 M2_HOME=/usr/local/maven \
 GRADLE_HOME=/usr/local/gradle \
-HOME=$BAMBOO_HOME/home \
-PATH=$M2_HOME/bin:$GRADLE_HOME/bin:$PATH \
-_JAVA_OPTIONS=-Duser.home=$HOME \
 JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk/jre 
+
+ENV HOME=$BAMBOO_HOME/home
+ENV PATH=$M2_HOME/bin:$GRADLE_HOME/bin:$PATH
+ENV _JAVA_OPTIONS=-Duser.home=$HOME
 
 RUN TOOL_INSTALL=/usr/local \
 && OCP_VERSION=v3.6.1 \
