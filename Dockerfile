@@ -13,7 +13,7 @@ ENV HOME=$BAMBOO_HOME/home
 ENV PATH=$M2_HOME/bin:$GRADLE_HOME/bin:$PATH
 ENV _JAVA_OPTIONS=-Duser.home=$HOME
 
-RUN TOOL_INSTALL=/usr/local \
+RUN TOOL_INSTALL=/usr/local/bin \
 && OCP_VERSION=v3.6.1 \
 && OCP_BUILD=008f2d5 \
 && CLI_VERSION=7.1.0 \
@@ -30,8 +30,8 @@ RUN TOOL_INSTALL=/usr/local \
 && yum clean all \
 && rm -rf /var/cache/yum \
 && mkdir -p ${BAMBOO_HOME} \
-&& mkdir -p ${TOOL_INSTALL}/maven \
-&& curl -fsSL ${MAVEN_URL} | tar -xz --strip-components=1 -C "$TOOL_INSTALL"/maven \
+&& mkdir -p "$M2_HOME" \
+&& curl -fsSL ${MAVEN_URL} | tar -xz --strip-components=1 -C "$M2_HOME" \
 && mkdir -p ${HOME}/.m2 \
 && curl -o ${HOME}/.m2/settings.xml -fsSL ${M2_URL} \
 && curl -fsSL ${OC_URL} | tar -xz --strip-components=1 -C "$TOOL_INSTALL" \
@@ -41,9 +41,9 @@ RUN TOOL_INSTALL=/usr/local \
 && mv atlassian-cli-${CLI_VERSION}/* "$TOOL_INSTALL" \
 && rm -rf atlassian-cli* \
 && curl -o gradle.zip -fsSL ${GRADLE_URL} \
-&& mkdir -p $TOOL_INSTALL/gradle \
+&& mkdir -p $GRADLE_HOME \
 && unzip -q gradle.zip \
-&& mv gradle-${GRADLE_VERSION}/* $TOOL_INSTALL/gradle \
+&& mv gradle-${GRADLE_VERSION}/* "$GRADLE_HOME" \
 && rm -rf gradle* \
 && chown -R ${RUN_USER}:${RUN_GROUP} ${TOOL_INSTALL} \
 && chmod -R 777 ${TOOL_INSTALL} \
