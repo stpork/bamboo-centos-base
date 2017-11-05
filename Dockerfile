@@ -5,27 +5,35 @@ MAINTAINER stpork from Mordor team
 ENV RUN_USER=daemon \
 RUN_GROUP=daemon \
 BAMBOO_HOME=/var/atlassian/application-data/bamboo \
-JAVA_HOME=/usr/lib/jvm/java-openjdk \
-PATH=$PATH:/usr/local/bin/gradle/bin
+PATH=$PATH:/usr/local/maven/bin:/usr/local/gradle/bin \
+M2_HOME=/usr/local/maven \
+GRADLE_HOME=/usr/local/gradle
+
+#JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk \
+#M2_HOME=/usr/share/maven \
 
 ENV HOME			$BAMBOO_HOME/home 
 ENV _JAVA_OPTIONS	-Duser.home=$HOME
 
-RUN TOOL_INSTALL=/usr/local/bin \
+RUN TOOL_INSTALL=/usr/local \
 && OCP_VERSION=v3.6.1 \
 && OCP_BUILD=008f2d5 \
 && CLI_VERSION=7.1.0 \
 && CLI_BUILD=16285777 \
 && GRADLE_VERSION=4.3 \
+&& MAVEN_VERSION=3.5.2 \
 && M2_URL=https://bitbucket.org/stpork/bamboo-agent/downloads/settings.xml \
 && OC_URL=http://github.com/openshift/origin/releases/download/${OCP_VERSION}/openshift-origin-client-tools-${OCP_VERSION}-${OCP_BUILD}-linux-64bit.tar.gz \
 && CLI_URL=http://bobswift.atlassian.net/wiki/download/attachments/${CLI_BUILD}/atlassian-cli-${CLI_VERSION}-distribution.zip \
 && GRADLE_URL=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
+&& MAVEN_URL=http://www.nic.funet.fi/pub/mirrors/apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
 && yum update -y \
-&& yum install -y which git wget openssl unzip maven net-tools nano tini telnet \
+&& yum install -y git wget openssl unzip nano net-tools tini telnet which dejavu-* java-1.8.0-openjdk java-1.8.0-openjdk-devel \
 && yum clean all \
 && rm -rf /var/cache/yum \
 && mkdir -p ${BAMBOO_HOME} \
+&& mkdir -p ${TOOL_INSTALL}/maven \
+&& curl -fsSL ${MAVEN_URL} | tar -xz --strip-components=1 -C "$TOOL_INSTALL"/maven \
 && mkdir -p ${HOME}/.m2 \
 && curl -o ${HOME}/.m2/settings.xml -fsSL ${M2_URL} \
 && curl -fsSL ${OC_URL} | tar -xz --strip-components=1 -C "$TOOL_INSTALL" \
