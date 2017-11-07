@@ -20,13 +20,14 @@ RUN TOOL_INSTALL=/usr/local/bin \
 && CLI_BUILD=16285777 \
 && GRADLE_VERSION=4.3 \
 && MAVEN_VERSION=3.5.2 \
+&& JAVA_VERSION=1.8.0 \
 && M2_URL=https://bitbucket.org/stpork/bamboo-agent/downloads/settings.xml \
 && OC_URL=http://github.com/openshift/origin/releases/download/${OCP_VERSION}/openshift-origin-client-tools-${OCP_VERSION}-${OCP_BUILD}-linux-64bit.tar.gz \
 && CLI_URL=http://bobswift.atlassian.net/wiki/download/attachments/${CLI_BUILD}/atlassian-cli-${CLI_VERSION}-distribution.zip \
 && GRADLE_URL=https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
 && MAVEN_URL=http://www.nic.funet.fi/pub/mirrors/apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
 && yum update -y \
-&& yum install -y git wget openssl unzip nano net-tools tini telnet which dejavu-* java-1.8.0-openjdk java-1.8.0-openjdk-devel \
+&& yum install -y git wget openssl unzip nano net-tools tini telnet which dejavu-* java-${JAVA_VERSION}-openjdk java-${JAVA_VERSION}-openjdk-devel \
 && yum clean all \
 && rm -rf /var/cache/yum \
 && mkdir -p ${BAMBOO_HOME} \
