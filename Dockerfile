@@ -7,12 +7,12 @@ RUN_GROUP=daemon \
 BAMBOO_HOME=/var/atlassian/application-data/bamboo \
 MAVEN_HOME=/usr/local/maven \
 GRADLE_HOME=/usr/local/gradle \
-JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk/jre \
+JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk/jre 
 
 ENV HOME=$BAMBOO_HOME/home \
 M2_HOME=$MAVEN_HOME \
 GIT_COMMITTER_NAME=$RUN_USER \
-GIT_COMMITTER_EMAIL=$RUN_USER@$HOSTNAME 
+GIT_COMMITTER_EMAIL=$RUN_USER@$HOSTNAME \
 
 ENV PATH=$M2_HOME/bin:$GRADLE_HOME/bin:$PATH \
 _JAVA_OPTIONS=-Duser.home=$HOME 
