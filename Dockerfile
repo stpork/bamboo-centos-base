@@ -5,15 +5,17 @@ MAINTAINER stpork from Mordor team
 ENV RUN_USER=daemon \
 RUN_GROUP=daemon \
 BAMBOO_HOME=/var/atlassian/application-data/bamboo \
-M2_HOME=/usr/local/maven \
+MAVEN_HOME=/usr/local/maven \
 GRADLE_HOME=/usr/local/gradle \
 JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk/jre \
 
 ENV HOME=$BAMBOO_HOME/home \
-GIT_COMMITTER_NAME=$RUN_USER
-GIT_COMMITTER_EMAIL=$RUN_USER@$HOSTNAME \
-ENV PATH=$M2_HOME/bin:$GRADLE_HOME/bin:$PATH
-ENV _JAVA_OPTIONS=-Duser.home=$HOME 
+M2_HOME=$MAVEN_HOME \
+GIT_COMMITTER_NAME=$RUN_USER \
+GIT_COMMITTER_EMAIL=$RUN_USER@$HOSTNAME 
+
+ENV PATH=$M2_HOME/bin:$GRADLE_HOME/bin:$PATH \
+_JAVA_OPTIONS=-Duser.home=$HOME 
 
 RUN TOOL_INSTALL=/usr/local/bin \
 && JAVA_VERSION=1.8.0 \
